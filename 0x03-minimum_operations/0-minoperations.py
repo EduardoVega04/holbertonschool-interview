@@ -22,7 +22,7 @@ def minOperations(n):
     """The main function. Returns integer"""
     if type(n) != int or n <= 1:
         return 0
-    for i in range(n // 2, 1, -1):
+    for i in range(n // 2, 1, -1):  # We need the largest prime divisor
         if n % i == 0:
             if prime_or_not(i) is True:
                 return i + (n // i)
