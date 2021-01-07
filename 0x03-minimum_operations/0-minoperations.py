@@ -17,12 +17,13 @@ def prime_or_not(n):
             return False
     return True
 
+
 def minOperations(n):
     """The main function. Returns integer"""
     if type(n) != int or n <= 1:
         return 0
     for i in range(n // 2, 1, -1):
         if n % i == 0:
-            if prime_or_not(i) == True:
+            if prime_or_not(i) is True:
                 return i + (n // i)
     return n
