@@ -32,4 +32,3 @@ except KeyboardInterrupt:
     for code in status_codes_list:
         if lines_by_statusCode[code] is not 0:
             print("{:d}: {:d}".format(code, lines_by_statusCode[code]))
-            lines_by_statusCode[code] = 0
