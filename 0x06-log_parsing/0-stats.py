@@ -1,38 +1,35 @@
 #!/usr/bin/python3
-"""reads stdin line by line and computes metrics"""
+"""Reads stdin line by line and computes metrics
+   Input format: <IP Address> - [<date>]
+   "GET /projects/260 HTTP/1.1" <status code> <file size>\n"""
 
-import sys
+from sys import stdin
 
-total_size = 0
-counter = 0
-codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-dict_counter = {'200': 0, '301': 0,
-                '400': 0, '401': 0,
-                '403': 0, '404': 0,
-                '405': 0, '500': 0}
+lines_read = 0
+status_codes_list = [200, 301, 400, 401, 403, 404, 405, 500]
+lines_by_statusCode = {}
+file_size = 0
+
+for code in status_codes_list:
+    lines_by_statusCode[code] = 0
 
 try:
-    for line in sys.stdin:
-        list_args = line.split(" ")
-        if len(list_args) > 2:
-            code = list_args[-2]
-            size = list_args[-1]
-            if code in codes:
-                dict_counter[code] += 1
-            total_size += int(size)
-            counter += 1
+    for line in stdin:
+        lines_read += 1
+        input_split = line.split()
+        file_size += int(input_split[-1])
+        lines_by_statusCode[int(input_split[-2])] += 1
 
-        if counter == 10:
-            print("File size: {:d}".format(total_size))
-            for k, v in sorted(dict_counter.items()):
-                if v != 0:
-                    print("{}: {:d}".format(k, v))
-                    counter = 0
-
-except Exception:
-    pass
-finally:
-    print("File size: {}".format(total_size))
-    for k, v in sorted(dict_counter.items()):
-        if v != 0:
-            print("{}: {}".format(k, v))
+        if lines_read == 10:
+            print("File size: {:d}".format(file_size))
+            for code in status_codes_list:
+                if lines_by_statusCode[code] is not 0:
+                    print("{:d}: {:d}".format(code, lines_by_statusCode[code]))
+                    lines_by_statusCode[code] = 0
+            lines_read = 0
+except KeyboardInterrupt:
+    print("File size: {:d}".format(file_size))
+    for code in status_codes_list:
+        if lines_by_statusCode[code] is not 0:
+            print("{:d}: {:d}".format(code, lines_by_statusCode[code]))
+            lines_by_statusCode[code] = 0
