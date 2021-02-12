@@ -1,0 +1,1 @@
+<strong>Palindrome number<strong>
