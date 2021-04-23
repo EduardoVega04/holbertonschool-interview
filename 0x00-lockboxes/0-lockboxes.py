@@ -3,6 +3,7 @@
 Each box is numbered sequentially from 0 to n - 1 and
 each box may contain keys to the other boxes"""
 
+
 def canUnlockAll(boxes):
     """Method that determines if all the boxes can be opened.
     The first box boxes[0] is unlocked"""
@@ -20,4 +21,4 @@ def canUnlockAll(boxes):
     if len(keys) == len(boxes):
         return True
 
-    return False        
+    return False
