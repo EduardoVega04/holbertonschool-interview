@@ -13,10 +13,7 @@ def rain(walls):
             elif wall == 0 and leftWall != 0:
                 distance += 1
             else:
-                if wall >= leftWall:
-                    totalWater += distance * leftWall
-                else:
-                    totalWater += distance * wall
+                totalWater += distance * min(leftWall, wall)
                 leftWall = wall
                 distance = 0
 
