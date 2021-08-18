@@ -9,5 +9,5 @@ if __name__ == "__main__":
     print(rain(walls))
     walls = [2, 0, 0, 4, 0, 0, 1, 0]
     print(rain(walls))
-    walls = [1, 1, 1, 0]
+    walls = [3, 0, 1, 0]
     print(rain(walls))
