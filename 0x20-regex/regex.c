@@ -1,12 +1,11 @@
 #include "regex.h"
 
 /**
- * regex_match - function that checks whether a given pattern matches a given string
+ * regex_match - Checks whether a given pattern matches a given string
  * @str: string to scan
  * @pattern: is the regular expression
  * Return: int 1 or 0
  */
-
 int regex_match(char const *str, char const *pattern)
 {
     int p, e;
