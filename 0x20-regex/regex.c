@@ -1,28 +1,23 @@
 #include "regex.h"
-
 /**
- * regex_match - Checks whether a given pattern matches a given string
- * @str: string to scan
- * @pattern: is the regular expression
- * Return: int 1 or 0
+ * regex_match - check whether a given pattern matches a given string
+ * @str: string
+ * @pattern: regular expression
+ * Return: 1 if pattern matches str and 0 otherwise
  */
+
 int regex_match(char const *str, char const *pattern)
 {
-    int p, e;
+	int i = 0;
 
-    if (!str || !pattern)
-        return (0);
-
-    e = *(pattern + 1) == '*';
-    p = *str && (*str == *pattern || *pattern == '.');
-
-    if (!*str && !e)
-        return (*pattern ? 0 : 1);
-    else if (p && e)
-        return (regex_match(str + 1, pattern) || regex_match(str, pattern + 2));
-    else if (p && !e)
-        return (regex_match(str + 1, pattern + 1));
-    else if (e)
-        return (regex_match(str, pattern + 2));
-    return (0);
+	if (*str == '\0' && *pattern == '\0')
+		return (1);
+	if ((*str == *pattern || *pattern == '.') && *(pattern + 1) != '*')
+		return (regex_match(str + 1, pattern + 1));
+	if (*(pattern + 1) == '*')
+	{
+		if (*str != '\0' && (*str == *pattern || *pattern == '.'))
+			i = regex_match(str + 1, pattern);
+		return (regex_match(str, pattern + 2) || i);
+	}
 }
